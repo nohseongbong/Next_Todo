@@ -1,8 +1,19 @@
+import styles from "@/styles/Main.module.css";
+import { Container } from "react-bootstrap";
+import { getTodos } from "@/apis/todo/todo";
+import { useQuery } from "@tanstack/react-query";
+import TodoList from "./TodoList";
+import TodoSearch from "./TodoSearch";
+
 const MainContainer = () => {
+  const { data } = useQuery({ queryKey: ["todos"], queryFn: getTodos, refetchOnWindowFocus: false });
+  const todos = data?.todos ?? [];
+
   return (
-    <div>
-      <span>Main page</span>
-    </div>
+    <Container className={styles.container}>
+      <TodoSearch />
+      <TodoList todos={todos} />
+    </Container>
   );
 };
 
