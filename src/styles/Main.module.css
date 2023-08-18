@@ -20,3 +20,8 @@
 .search_input:focus {
   border: 1px solid red;
 }
+
+/* ToDo Pagination */
+.pagination_wrap {
+  margin-top: 80px;
+}
