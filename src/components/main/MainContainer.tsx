@@ -4,6 +4,7 @@ import { getTodos } from "@/apis/todo/todo";
 import { useQuery } from "@tanstack/react-query";
 import TodoList from "./TodoList";
 import TodoSearch from "./TodoSearch";
+import TodoPagination from "./TodoPagination";
 
 const MainContainer = () => {
   const { data } = useQuery({ queryKey: ["todos"], queryFn: getTodos, refetchOnWindowFocus: false });
@@ -13,6 +14,7 @@ const MainContainer = () => {
     <Container className={styles.container}>
       <TodoSearch />
       <TodoList todos={todos} />
+      <TodoPagination total={todos.length} />
     </Container>
   );
 };
