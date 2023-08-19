@@ -26,7 +26,7 @@ const todoList = (req: NextApiRequest, res: NextApiResponse<TodoListResType>) =>
   };
 
   const TODOS: Todo[] = faker.helpers.multiple(createRandomUser, {
-    count: 3,
+    count: 30,
   });
   const data = {
     todos: TODOS,
