@@ -1,16 +1,22 @@
 import { Todo } from "@/pages/api/todoList";
-import styles from "@/styles/Main.module.css";
-import { Container, Form, Accordion, Button } from "react-bootstrap";
+import { Container, Accordion } from "react-bootstrap";
 
 interface TodoListProps {
   todos: Todo[];
+  currentPage: number;
 }
 
-const TodoList = ({ todos }: TodoListProps) => {
+const ITEMS_PER_PAGE = 5;
+
+const TodoList = ({ todos, currentPage }: TodoListProps) => {
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+
+  const itemsToShow = todos.slice(startIndex, endIndex);
   return (
     <Container>
       <Accordion defaultActiveKey="0">
-        {todos.map((todo) => {
+        {itemsToShow.map((todo) => {
           return (
             <Accordion.Item key={todo.todoId} eventKey={todo.todoId}>
               <Accordion.Header>{todo.title}</Accordion.Header>
