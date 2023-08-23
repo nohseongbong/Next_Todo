@@ -12,7 +12,6 @@ const todoList = (req: NextApiRequest, res: NextApiResponse<TodoListResType>) =>
       id: faker.string.uuid(),
       title: faker.lorem.words(),
       content: faker.lorem.text(),
-      completed: "incomplete",
     };
     return todo;
   };
