@@ -3,11 +3,18 @@ import jwt, { JwtPayload, TokenExpiredError } from "jsonwebtoken";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
+const secretKey = process.env.JWT_SECRET_KEY;
+
+type Todo = {
+  id: number;
+  userId: string;
+  title: string;
+  content: string;
+};
+
 interface DecodedToken extends JwtPayload {
   userId: string;
 }
-
-const secretKey = process.env.JWT_SECRET_KEY;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const accessToken = req.headers.authorization?.split(" ")[1];
@@ -18,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   if (!accessToken) {
     if (req.method === "GET") {
-      res.status(200).json([]);
+      res.status(200).json([] as Todo[]);
       return;
     }
     res.status(401).json({ message: "Unauthorized" });
@@ -44,10 +51,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "GET") {
       // SELECT 쿼리 실행
       const todos = await db.all("SELECT * FROM todo");
-      res.status(200).json(todos);
+      res.status(200).json(todos as Todo[]);
     }
 
     if (req.method === "POST") {
+      /**
+       * @param title 제목
+       * @param content 내용
+       */
       const { title, content } = req.body;
       // INSERT 쿼리 실행
       await db.run("INSERT INTO todo (userId, title, content) VALUES (?, ?, ?)", userId, title, content);
@@ -55,6 +66,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === "PUT") {
+      /**
+       * @param id 키 값
+       * @param title 제목
+       * @param content 내용
+       */
       const { id, title, content } = req.body;
       // UPDATE 쿼리 실행
       await db.run("UPDATE todo SET title = ?, content = ? WHERE id = ?", title, content, id);
@@ -62,6 +78,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === "DELETE") {
+      /**
+       * @param id 키 값
+       */
       const { id } = req.query;
       // DELETE 쿼리 실행
       await db.run("DELETE FROM todo WHERE id = ? AND userId = ?", id, userId);

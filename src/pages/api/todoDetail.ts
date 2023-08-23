@@ -5,6 +5,13 @@ import { open } from "sqlite";
 
 const secretKey = process.env.JWT_SECRET_KEY;
 
+type Todo = {
+  id: number;
+  userId: string;
+  title: string;
+  content: string;
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const accessToken = req.headers.authorization?.split(" ")[1];
 
@@ -23,6 +30,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (req.method === "GET") {
+      /**
+       * @param id number
+       */
       const { id } = req.query;
       if (!id) {
         res.status(400).json({ message: "Missing id parameter" });
@@ -33,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (!todo) {
         res.status(404).json({ message: "Todo not found" });
       } else {
-        res.status(200).json(todo);
+        res.status(200).json(todo as Todo);
       }
     }
 

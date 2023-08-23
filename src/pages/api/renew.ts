@@ -7,9 +7,22 @@ interface DecodedToken extends JwtPayload {
 
 const secretKey = process.env.JWT_SECRET_KEY;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+type ResponseType = {
+  accessToken: string;
+};
+
+type RequestData = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType | { message: string }>) {
   if (req.method === "POST") {
-    const { accessToken, refreshToken } = req.body;
+    /**
+     * @param accessToken access 토큰
+     * @param refreshToken refresh 토큰
+     */
+    const { accessToken, refreshToken } = req.body as RequestData;
     if (!refreshToken || !accessToken) {
       res.status(400).json({ message: "Refresh token is required" });
       return;
