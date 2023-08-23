@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import Link from "next/link";
+import styles from "@/styles/Main.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { createTodo } from "@/apis/todo/todo";
 import { useRouter } from "next/router";
@@ -31,17 +32,25 @@ const CreateContainer = () => {
 
         <Form.Group controlId="content">
           <Form.Label>내용</Form.Label>
-          <Form.Control as="textarea" rows={3} placeholder="Enter content" value={content} onChange={(e) => setContent(e.target.value)} />
+          <Form.Control
+            className={styles.create_content}
+            as="textarea"
+            rows={3}
+            placeholder="Enter content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </Form.Group>
-
-        <Button variant="primary" onClick={handleCreate}>
-          생성
-        </Button>
-        <Link href="/">
-          <Button variant="secondary" className="ml-2">
-            목록
+        <div className={styles.create_btn_wrap}>
+          <Button variant="primary" onClick={handleCreate}>
+            생성
           </Button>
-        </Link>
+          <Link href="/">
+            <Button variant="secondary" className="ml-2">
+              목록
+            </Button>
+          </Link>
+        </div>
       </Form>
     </Container>
   );
