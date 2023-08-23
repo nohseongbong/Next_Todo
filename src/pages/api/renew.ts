@@ -10,7 +10,6 @@ const secretKey = process.env.JWT_SECRET_KEY;
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const { accessToken, refreshToken } = req.body;
-    console.log(accessToken, refreshToken, ": accessToken, refreshToken");
     if (!refreshToken || !accessToken) {
       res.status(400).json({ message: "Refresh token is required" });
       return;
