@@ -7,7 +7,6 @@ type TodoListResType = TodoType[];
  */
 export const getTodos = async () => {
   const { data } = await axiosInstance.get<TodoListResType>("/todo");
-  console.log(data, ": get data");
   return data;
 };
 
@@ -25,7 +24,6 @@ type CreateTodoReqType = {
  */
 export const createTodo = async ({ title, content }: CreateTodoReqType) => {
   const { data } = await axiosInstance.post<CreateTodoResType>("/todo", { title, content });
-  console.log(data, ": create data");
   return data;
 };
 
@@ -36,18 +34,15 @@ type UpdateTodoReqType = {
   id: number;
   title: string;
   content: string;
-  completed: boolean;
 };
 /**
  * Todo 생성 API
  * @param id 아이디 PK
  * @param title 제목
  * @param content 내용
- * @param completed 상태
  */
-export const updateTodo = async ({ id, title, content, completed }: UpdateTodoReqType) => {
-  const { data } = await axiosInstance.put<UpdateTodoResType>("/todo", { title, content, id, completed });
-  console.log(data, ": update data");
+export const updateTodo = async ({ id, title, content }: UpdateTodoReqType) => {
+  const { data } = await axiosInstance.put<UpdateTodoResType>("/todo", { title, content, id });
   return data;
 };
 
@@ -63,6 +58,22 @@ type DeleteTodoReqType = {
  */
 export const deleteTodo = async ({ id }: DeleteTodoReqType) => {
   const { data } = await axiosInstance.delete<DeleteTodoResType>(`/todo?id=${id}`);
-  console.log(data, ": deleted data");
+  return data;
+};
+
+type TodoDetailResType = {
+  id: number;
+  title: string;
+  content: string;
+};
+type TodoDetailReqType = {
+  id: string | string[] | undefined;
+};
+/**
+ * Todo 상세보기 API
+ * @param id 아이디 PK
+ */
+export const getTodoDetail = async ({ id }: TodoDetailReqType) => {
+  const { data } = await axiosInstance.get<TodoDetailResType>(`/todoDetail?id=${id}`);
   return data;
 };
