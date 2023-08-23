@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import styles from "@/styles/Main.module.css";
 
 const LoginContainer = () => {
   const router = useRouter();
@@ -22,8 +23,8 @@ const LoginContainer = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <Form>
+    <Container className={`mt-5 ${styles.login_container}`}>
+      <Form className={styles.login_wrap}>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -34,7 +35,7 @@ const LoginContainer = () => {
           <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </Form.Group>
 
-        <Button variant="primary" onClick={handleLogin}>
+        <Button className={styles.login_btn} variant="primary" onClick={handleLogin}>
           Log In
         </Button>
       </Form>
