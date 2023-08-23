@@ -31,16 +31,12 @@ axiosInstance.interceptors.response.use(
       const accessToken = localStorage.getItem("jwtAccessKey");
       const refreshToken = localStorage.getItem("jwtRefreshKey");
       if (refreshToken && accessToken && config) {
-        console.log("accessToken 재발급 요청");
         try {
           const data = await renewToken({ accessToken, refreshToken });
           if (data?.accessToken) {
-            console.log(data?.accessToken, "accessToken 재발급 성공");
             localStorage.setItem("jwtAccessKey", data.accessToken);
           }
-        } catch {
-          console.log("accessToken 재발급 실패");
-        }
+        } catch {}
       }
     }
     return Promise.reject(error);
