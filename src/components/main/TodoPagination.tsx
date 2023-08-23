@@ -1,15 +1,16 @@
 import { Pagination } from "react-bootstrap";
 import styles from "@/styles/Main.module.css";
 import { Dispatch, SetStateAction } from "react";
-import { Todo } from "@/pages/api/todoList";
+import { TodoType } from "@/types/todo";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 
 type PaginationProps = {
-  todos: Todo[];
+  todos: TodoType[];
   current: { currentPage: number; setCurrentPage: Dispatch<SetStateAction<number>> };
 };
 
 const TodoPagination = ({ todos, current }: PaginationProps) => {
-  const totalPages = Math.ceil(todos.length / 5);
+  const totalPages = Math.ceil(todos.length / ITEMS_PER_PAGE);
 
   const handlePageChange = (page: number) => {
     current.setCurrentPage(page);
