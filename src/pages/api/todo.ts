@@ -60,6 +60,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
        * @param content 내용
        */
       const { title, content } = req.body;
+      if (!title || !content) {
+        res.status(400).json({ message: "400 Bad Request" });
+        return;
+      }
       // INSERT 쿼리 실행
       await db.run("INSERT INTO todo (userId, title, content) VALUES (?, ?, ?)", userId, title, content);
       res.status(201).json({ message: "Todo created successfully" });
@@ -72,6 +76,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
        * @param content 내용
        */
       const { id, title, content } = req.body;
+      if (!id || !title || !content) {
+        res.status(400).json({ message: "400 Bad Request" });
+        return;
+      }
       // UPDATE 쿼리 실행
       await db.run("UPDATE todo SET title = ?, content = ? WHERE id = ?", title, content, id);
       res.status(201).json({ message: "Todo updated successfully" });
@@ -82,6 +90,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
        * @param id 키 값
        */
       const { id } = req.query;
+      if (!id) {
+        res.status(400).json({ message: "400 Bad Request" });
+        return;
+      }
       // DELETE 쿼리 실행
       await db.run("DELETE FROM todo WHERE id = ? AND userId = ?", id, userId);
       res.status(201).json({ message: "Todo deleted successfully" });
