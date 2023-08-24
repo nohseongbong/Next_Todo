@@ -1,4 +1,3 @@
-import useTodoStore from "@/store/todoStore";
 import styles from "@/styles/Main.module.css";
 import { ChangeEventHandler } from "react";
 import { Form, FormControl } from "react-bootstrap";
