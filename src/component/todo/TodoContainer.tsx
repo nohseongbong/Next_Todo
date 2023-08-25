@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 import { Card, Button, Container, FormControl } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/constants/query-key";
-import { getTodoDetail, updateTodo } from "@/apis/todo/todo";
+import { useMutation } from "@tanstack/react-query";
+import { updateTodo } from "@/api/todo/todo";
 import styles from "@/styles/Main.module.css";
-
-interface TodoDetail {
-  id: number;
-  title: string;
-  content: string;
-}
+import { useTodoDetail } from "@/hook/useTodoDetail";
+import { useTodoUpdate } from "@/hook/useTodoUpdate";
 
 const TodoContainer = () => {
   const router = useRouter();
   const { id } = router.query;
-  const {
-    data: todoDetail,
-    isLoading,
-    isError,
-  } = useQuery<TodoDetail>([QUERY_KEYS.TODO_DETAIL], () => getTodoDetail({ id }), { enabled: id ? true : false });
+  const { todoDetail, isLoading, isError } = useTodoDetail({ id: Number(id) });
+  const mutation = useTodoUpdate({ onSuccess: router.back });
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -30,12 +22,6 @@ const TodoContainer = () => {
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
-
-  const mutation = useMutation(updateTodo, {
-    onSuccess: () => {
-      router.back();
-    },
-  });
 
   const onClickUpdate = () => {
     if (id && title && content) {

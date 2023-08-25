@@ -1,4 +1,4 @@
-import { login } from "@/apis/auth/auth";
+import { login } from "@/api/auth/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -36,7 +36,7 @@ const LoginContainer = () => {
         </Form.Group>
 
         <Button className={styles.login_btn} variant="primary" onClick={handleLogin}>
-          Log In
+          로그인
         </Button>
       </Form>
     </Container>

@@ -2,7 +2,7 @@ import { Pagination } from "react-bootstrap";
 import styles from "@/styles/Main.module.css";
 import { Dispatch, SetStateAction } from "react";
 import { TodoType } from "@/types/todo";
-import { ITEMS_PER_PAGE } from "@/constants/pagination";
+import { ITEMS_PER_PAGE } from "@/constant/pagination";
 
 type PaginationProps = {
   todos: TodoType[];

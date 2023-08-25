@@ -67,7 +67,7 @@ type TodoDetailResType = {
   content: string;
 };
 type TodoDetailReqType = {
-  id: string | string[] | undefined;
+  id: number;
 };
 /**
  * Todo 상세보기 API

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
 import Link from "next/link";
-import styles from "@/styles/Main.module.css";
+import { Container, Form, Button } from "react-bootstrap";
 import { useMutation } from "@tanstack/react-query";
-import { createTodo } from "@/apis/todo/todo";
+import { createTodo } from "@/api/todo/todo";
 import { useRouter } from "next/router";
+
+import styles from "@/styles/Main.module.css";
 
 const CreateContainer = () => {
   const route = useRouter();

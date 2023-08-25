@@ -1,9 +1,9 @@
-import { deleteTodo } from "@/apis/todo/todo";
+import { deleteTodo } from "@/api/todo/todo";
 import { TodoType } from "@/types/todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Container, Accordion, Button } from "react-bootstrap";
-import { ITEMS_PER_PAGE } from "@/constants/pagination";
-import { QUERY_KEYS } from "@/constants/query-key";
+import { ITEMS_PER_PAGE } from "@/constant/pagination";
+import { QUERY_KEYS } from "@/constant/query-key";
 import styles from "@/styles/Main.module.css";
 import { useRouter } from "next/router";
 
