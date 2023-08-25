@@ -1,4 +1,4 @@
-import TodoContainer from "@/components/todo/TodoContainer";
+import TodoContainer from "@/component/todo/TodoContainer";
 
 export default function TodoDetailPage() {
   return (

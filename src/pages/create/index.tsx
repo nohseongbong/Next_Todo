@@ -1,4 +1,4 @@
-import CreateContainer from "@/components/create/CreateContainer";
+import CreateContainer from "@/component/create/CreateContainer";
 
 export default function CreatePage() {
   return (
